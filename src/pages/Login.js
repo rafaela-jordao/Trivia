@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class Login extends React.Component {
@@ -16,6 +17,11 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     }, this.isLoginValid);
+  }
+
+  handleClickSubmit = () => {
+    const { history } = this.props;
+    history.push('/settings');
   }
 
   isLoginValid = () => {
@@ -43,6 +49,46 @@ class Login extends React.Component {
   render() {
     const { playerBtn, name, email } = this.state;
     return (
+      <div>
+        <form>
+          <label htmlFor="name">
+            <input
+              placeholder="Digite seu Nome"
+              value={ name }
+              name="name"
+              type="text"
+              data-testid="input-player-name"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="email">
+            <input
+              placeholder="Digite seu Email"
+              value={ email }
+              name="email"
+              type="email"
+              data-testid="input-gravatar-email"
+              onChange={ this.handleChange }
+            />
+          </label>
+
+          <button
+            name="btnPlay"
+            type="submit"
+            data-testid="btn-play"
+            disabled={ !playerBtn }
+          >
+            Play
+          </button>
+        </form>
+        <button
+          type="submit"
+          onClick={ this.handleClickSubmit }
+          data-testid="btn-settings"
+        >
+          Configurações
+        </button>
+      </div>
       <form>
         <label htmlFor="name">
           <input
@@ -75,9 +121,12 @@ class Login extends React.Component {
         </button>
 
       </form>
-
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.func.isRequired,
+};
 
 export default Login;
