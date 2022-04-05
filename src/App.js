@@ -4,6 +4,9 @@ import './App.css';
 import Login from './pages/Login';
 import Settings from './pages/settings';
 
+import './App.css';
+import Login from './pages/Login';
+
 export default function App() {
   return (
     <div className="App">

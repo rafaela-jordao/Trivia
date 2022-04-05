@@ -80,7 +80,6 @@ class Login extends React.Component {
           >
             Play
           </button>
-
         </form>
         <button
           type="submit"
@@ -90,6 +89,38 @@ class Login extends React.Component {
           Configurações
         </button>
       </div>
+      <form>
+        <label htmlFor="name">
+          <input
+            placeholder="Digite seu Nome"
+            value={ name }
+            name="name"
+            type="text"
+            data-testid="input-player-name"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="email">
+          <input
+            placeholder="Digite seu Email"
+            value={ email }
+            name="email"
+            type="email"
+            data-testid="input-gravatar-email"
+            onChange={ this.handleChange }
+          />
+        </label>
+
+        <button
+          name="btnPlay"
+          type="submit"
+          data-testid="btn-play"
+          disabled={ !playerBtn }
+        >
+          Play
+        </button>
+
+      </form>
     );
   }
 }
@@ -97,4 +128,5 @@ class Login extends React.Component {
 Login.propTypes = {
   history: PropTypes.func.isRequired,
 };
+
 export default Login;
