@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { fetchToken, PLAYER } from '../actions/index';
 // import getToken from '../helpers/api';
 
@@ -21,11 +20,6 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     }, this.isLoginValid);
-  }
-
-  handleClickSubmit = () => {
-    const { history } = this.props;
-    history.push('/settings');
   }
 
   isLoginValid = () => {
@@ -50,16 +44,16 @@ class Login extends React.Component {
     }
   };
 
-  handleClick = async () => {
-    const { getPlayerToken } = this.props;
+  handleClickPlay = async () => {
+    const { getPlayerToken, history, playerMap } = this.props;
     await getPlayerToken();
-    this.redirect();
-  }
-
-  redirect = () => {
-    const { history, playerMap } = this.props;
     playerMap(this.state);
     history.push('/game');
+  }
+
+  handleClickSettings = () => {
+    const { history } = this.props;
+    history.push('/settings');
   }
 
   render() {
@@ -93,14 +87,14 @@ class Login extends React.Component {
             type="button"
             data-testid="btn-play"
             disabled={ !playerBtn }
-            onClick={ this.handleClick }
+            onClick={ this.handleClickPlay }
           >
             Jogar
           </button>
         </form>
         <button
-          type="submit"
-          onClick={ this.handleClickSubmit }
+          type="button"
+          onClick={ this.handleClickSettings }
           data-testid="btn-settings"
         >
           Configurações
@@ -128,4 +122,3 @@ Login.propTypes = {
   }).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
