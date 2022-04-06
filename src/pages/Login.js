@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -20,6 +21,11 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     }, this.isLoginValid);
+  }
+
+  handleClickSubmit = () => {
+    const { history } = this.props;
+    history.push('/settings');
   }
 
   isLoginValid = () => {
@@ -59,39 +65,47 @@ class Login extends React.Component {
   render() {
     const { playerBtn, name, email } = this.state;
     return (
-      <form>
-        <label htmlFor="name">
-          <input
-            placeholder="Digite seu Nome"
-            value={ name }
-            name="name"
-            type="text"
-            data-testid="input-player-name"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="email">
-          <input
-            placeholder="Digite seu Email"
-            value={ email }
-            name="email"
-            type="email"
-            data-testid="input-gravatar-email"
-            onChange={ this.handleChange }
-          />
-        </label>
+      <div>
+        <form>
+          <label htmlFor="name">
+            <input
+              placeholder="Digite seu Nome"
+              value={ name }
+              name="name"
+              type="text"
+              data-testid="input-player-name"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="email">
+            <input
+              placeholder="Digite seu Email"
+              value={ email }
+              name="email"
+              type="email"
+              data-testid="input-gravatar-email"
+              onChange={ this.handleChange }
+            />
+          </label>
 
+          <button
+            name="btnPlay"
+            type="button"
+            data-testid="btn-play"
+            disabled={ !playerBtn }
+            onClick={ this.handleClick }
+          >
+            Jogar
+          </button>
+        </form>
         <button
-          name="btnPlay"
-          type="button"
-          data-testid="btn-play"
-          disabled={ !playerBtn }
-          onClick={ this.handleClick }
+          type="submit"
+          onClick={ this.handleClickSubmit }
+          data-testid="btn-settings"
         >
-          Jogar
+          Configurações
         </button>
-
-      </form>
+      </div>
 
     );
   }
@@ -106,6 +120,7 @@ const mapStateToProps = (state) => ({
 });
 
 Login.propTypes = {
+
   playerMap: PropTypes.func.isRequired,
   getPlayerToken: PropTypes.func.isRequired,
   history: PropTypes.shape({
@@ -113,3 +128,4 @@ Login.propTypes = {
   }).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
