@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import './App.css';
 import Game from './pages/Game';
+import Header from './components/Header';
 import Login from './pages/Login';
 import Settings from './pages/settings';
 
@@ -13,6 +14,8 @@ export default function App() {
         <Route path="/game" component={ Game } />
         <Route exact path="/" component={ Login } />
       </Switch>
+      <Header />
+      <Login />
     </div>
   );
 }
