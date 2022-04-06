@@ -83,7 +83,7 @@ class Login extends React.Component {
 
         <button
           name="btnPlay"
-          type="submit"
+          type="button"
           data-testid="btn-play"
           disabled={ !playerBtn }
           onClick={ this.handleClick }
@@ -107,6 +107,7 @@ const mapStateToProps = (state) => ({
 
 Login.propTypes = {
   playerMap: PropTypes.func.isRequired,
+  getPlayerToken: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
