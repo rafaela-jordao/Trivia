@@ -18,7 +18,6 @@ class Header extends Component {
   render() {
     const { player, score, gravatarEmail } = this.props;
     const gravatarSrc = `https://www.gravatar.com/avatar/${gravatarEmail}`;
-    console.log(md5);
     return (
       <header className="header">
         <img
@@ -48,9 +47,13 @@ const mapDispatchToProps = (dispatch) => ({
 Header.propTypes = {
   player: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
   gravatarEmail: PropTypes.string.isRequired,
   playerMap: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  email: PropTypes.null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
