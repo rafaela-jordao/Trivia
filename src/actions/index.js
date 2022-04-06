@@ -1,4 +1,4 @@
-import getToken from '../helpers/api';
+import { getToken } from '../helpers/api';
 
 export const PLAYER = (player) => ({ type: 'PLAYER', player });
 
