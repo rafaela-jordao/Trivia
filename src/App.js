@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import './App.css';
-import { Route, Switch } from 'react-router';
 import Game from './pages/Game';
 import Login from './pages/Login';
 import Settings from './pages/settings';
