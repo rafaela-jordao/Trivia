@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchToken, PLAYER } from '../actions/index';
+// import getToken from '../helpers/api';
 
 class Login extends React.Component {
   constructor(props) {
@@ -46,6 +50,18 @@ class Login extends React.Component {
     }
   };
 
+  handleClick = async () => {
+    const { getPlayerToken } = this.props;
+    await getPlayerToken();
+    this.redirect();
+  }
+
+  redirect = () => {
+    const { history, playerMap } = this.props;
+    playerMap(this.state);
+    history.push('/game');
+  }
+
   render() {
     const { playerBtn, name, email } = this.state;
     return (
@@ -74,11 +90,12 @@ class Login extends React.Component {
 
           <button
             name="btnPlay"
-            type="submit"
+            type="button"
             data-testid="btn-play"
             disabled={ !playerBtn }
+            onClick={ this.handleClick }
           >
-            Play
+            Jogar
           </button>
         </form>
         <button
@@ -93,9 +110,22 @@ class Login extends React.Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  playerMap: (player) => dispatch(PLAYER(player)),
+  getPlayerToken: () => dispatch(fetchToken()),
+});
+
+const mapStateToProps = (state) => ({
+  token: state.token.token,
+});
 
 Login.propTypes = {
-  history: PropTypes.func.isRequired,
-};
 
-export default Login;
+  playerMap: PropTypes.func.isRequired,
+  getPlayerToken: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
