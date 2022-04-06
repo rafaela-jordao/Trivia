@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 import { fetchToken } from '../actions/index';
+import Header from '../components/Header';
 import { getQuestions } from '../helpers/api';
 
 class Game extends React.Component {
@@ -35,7 +36,8 @@ class Game extends React.Component {
      const { gameQuestions } = this.state;
      console.log(gameQuestions);
      return (
-       <div>
+       <>
+        <Header />
          {gameQuestions
            ? (
              <>
@@ -46,7 +48,7 @@ class Game extends React.Component {
            )
            : null }
          <p>teste</p>
-       </div>
+       </>
 
      );
    }
