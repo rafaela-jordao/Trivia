@@ -4,14 +4,24 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends React.Component {
+  componentDidMount() {
+    this.Salvar();
+  }
+
+  Salvar = () => {
+    const { correctAnswer, score } = this.props;
+    localStorage.setItem('correctAnswer', `${correctAnswer}`);
+    localStorage.setItem('score', `${score}`);
+  };
+
   render() {
-    const { answer } = this.props;
+    const { correctAnswer, score } = this.props;
     const TRES = 3;
     return (
       <div>
         <Header />
         {
-          answer >= TRES
+          correctAnswer >= TRES
             ? (
               <p data-testid="feedback-text">
                 Well Done!
@@ -21,17 +31,24 @@ class Feedback extends React.Component {
                 Could be better...
               </p>)
         }
-
+        <p data-testid="feedback-total-score">
+          { score }
+        </p>
+        <p data-testid="feedback-total-question">
+          { correctAnswer }
+        </p>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => ({
-  answer: state.player.answer,
+  correctAnswer: state.player.answer,
+  score: state.player.score,
 });
 
 Feedback.propTypes = {
-  answer: PropTypes.string.isRequired,
+  correctAnswer: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
