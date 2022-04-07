@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import he from 'he';
-import { fetchToken } from '../actions/index';
+import { fetchToken, addScore } from '../actions/index';
 import Header from '../components/Header';
 import { getQuestions } from '../helpers/api';
 import './Game.css';
@@ -40,12 +40,14 @@ class Game extends React.Component {
      }, this.handleAnswersOrder);
    }
 
-   handleClickAnswer = (isCorrectAnswer) => {
+   handleClickAnswer = (isCorrectAnswer, difficulty) => {
+     const { answersTimer } = this.state;
      this.setState({
        isBtnDisabled: true,
        answerBorder: 'border',
      });
-     console.log(isCorrectAnswer);
+
+     if (isCorrectAnswer) this.handleScore(answersTimer, difficulty);
    }
 
    handleAnswersOrder = () => {
@@ -61,6 +63,30 @@ class Game extends React.Component {
      this.setState({
        answersWithOrder,
      });
+   }
+
+   handleScore = (answerTime, difficulty) => {
+     const { updateScore } = this.props;
+     const BASE_POINTS = 10;
+     const EASY_POINTS = 1;
+     const MEDIUM_POINTS = 2;
+     const HARD_POINTS = 3;
+
+     let difficultyPoints = 1;
+     switch (difficulty) {
+     case 'medium':
+       difficultyPoints = MEDIUM_POINTS;
+       break;
+     case 'hard':
+       difficultyPoints = HARD_POINTS;
+       break;
+     default:
+       difficulty = EASY_POINTS;
+     }
+
+     const scoreToAdd = BASE_POINTS + (answerTime * difficultyPoints);
+
+     updateScore(scoreToAdd);
    }
 
    randomizeArray = (arrayToRandomize) => {
@@ -122,7 +148,10 @@ class Game extends React.Component {
                                type="button"
                                data-testid="correct-answer"
                                key={ `answer${answerIndex}` }
-                               onClick={ () => this.handleClickAnswer(true) }
+                               onClick={ () => this.handleClickAnswer(
+                                 true,
+                                 gameQuestions[currentQuestion].difficulty,
+                               ) }
                                disabled={ isBtnDisabled }
                              >
                                {he.decode(answer)}
@@ -135,7 +164,7 @@ class Game extends React.Component {
                                type="button"
                                data-testid={ `wrong-answer-${answerIndex}` }
                                disabled={ isBtnDisabled }
-                               onClick={ () => this.handleClickAnswer(false) }
+                               onClick={ () => this.handleClickAnswer(false, null) }
                              >
                                {he.decode(answer)}
 
@@ -154,6 +183,7 @@ class Game extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getPlayerToken: () => dispatch(fetchToken()),
+  updateScore: (newScore) => dispatch(addScore(newScore)),
 });
 
 const mapStateToProps = (state) => ({
@@ -163,6 +193,7 @@ const mapStateToProps = (state) => ({
 Game.propTypes = {
   token: PropTypes.string.isRequired,
   getPlayerToken: PropTypes.func.isRequired,
+  updateScore: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
