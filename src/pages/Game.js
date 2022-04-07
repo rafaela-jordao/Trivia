@@ -2,7 +2,7 @@ import he from 'he';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { addScore, fetchToken } from '../actions/index';
+import { addAnswer, addScore, fetchToken } from '../actions/index';
 import Header from '../components/Header';
 import { getQuestions } from '../helpers/api';
 import './Game.css';
@@ -18,6 +18,7 @@ class Game extends React.Component {
       answersTimer: 30,
       answersWithOrder: [],
       nextButton: false,
+      correctAnswers: 0,
     });
   }
 
@@ -42,13 +43,19 @@ class Game extends React.Component {
    }
 
    handleClickAnswer = (isCorrectAnswer, difficulty) => {
-     const { answersTimer } = this.state;
+     const { answersTimer, correctAnswers } = this.state;
      this.setState({
        isBtnDisabled: true,
        answerBorder: 'border',
      });
 
-     if (isCorrectAnswer) this.handleScore(answersTimer, difficulty);
+     if (isCorrectAnswer) {
+       this.handleScore(answersTimer, difficulty);
+       this.setState({
+         correctAnswers: correctAnswers + 1,
+       });
+     }
+
      this.setState({
        nextButton: true,
      });
@@ -99,16 +106,18 @@ class Game extends React.Component {
    }
 
    handleNextButtonClick = () => {
-     const { currentQuestion } = this.state;
-     const { history } = this.props;
+     const { currentQuestion, correctAnswers } = this.state;
+     const { history, updateAnswer } = this.props;
      this.setState({
        currentQuestion: currentQuestion + 1,
        nextButton: false,
+       answersTimer: 30,
        answerBorder: '',
        isBtnDisabled: false,
-     });
+     }, this.questionsTimeOut());
      const LASTQUESTION = 4;
      if (currentQuestion === LASTQUESTION) {
+       updateAnswer(correctAnswers);
        history.push('/feedback');
      }
    }
@@ -117,17 +126,16 @@ class Game extends React.Component {
      const oneSecond = 1000;
      const { answersTimer } = this.state;
      const timeToAnswer = setTimeout(() => {
-       if (answersTimer > 0) {
-         this.setState({ answersTimer: answersTimer - 1 });
-         this.questionsTimeOut();
-       } else {
-         clearTimeout(timeToAnswer);
-         this.setState({
-           isBtnDisabled: true,
-           answerBorder: 'border',
-         });
-       }
+       this.setState({ answersTimer: answersTimer - 1 });
      }, oneSecond);
+     if (answersTimer === 0) {
+       clearTimeout(timeToAnswer);
+       this.setState({
+         isBtnDisabled: true,
+         answerBorder: 'border',
+         nextButton: true,
+       });
+     }
    }
 
    render() {
@@ -217,6 +225,7 @@ class Game extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   getPlayerToken: () => dispatch(fetchToken()),
   updateScore: (newScore) => dispatch(addScore(newScore)),
+  updateAnswer: (newAnswer) => dispatch(addAnswer(newAnswer)),
 });
 
 const mapStateToProps = (state) => ({
@@ -226,6 +235,7 @@ const mapStateToProps = (state) => ({
 Game.propTypes = {
   token: PropTypes.string.isRequired,
   getPlayerToken: PropTypes.func.isRequired,
+  updateAnswer: PropTypes.func.isRequired,
   updateScore: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
