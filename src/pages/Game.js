@@ -14,7 +14,7 @@ class Game extends React.Component {
       currentQuestion: 0,
       isBtnDisabled: false,
       answerBorder: '',
-      answersTimer: 5,
+      answersTimer: 30,
     });
   }
 
@@ -92,7 +92,7 @@ class Game extends React.Component {
 
                    </p>
                  </div>
-                 {/* <p>{answersTimer}</p> */}
+                 <p>{answersTimer}</p>
                  <div data-testid="answer-options" className="answer-container">
                    { this.randomizeQuestions(
                      [...gameQuestions[currentQuestion].incorrect_answers,
