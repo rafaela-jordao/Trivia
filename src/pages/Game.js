@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import he from 'he';
 import { fetchToken } from '../actions/index';
 import Header from '../components/Header';
 import { getQuestions } from '../helpers/api';
@@ -15,6 +16,7 @@ class Game extends React.Component {
       isBtnDisabled: false,
       answerBorder: '',
       answersTimer: 30,
+      answersWithOrder: [],
     });
   }
 
@@ -35,7 +37,7 @@ class Game extends React.Component {
 
      this.setState({
        gameQuestions: fetchQuestions.results,
-     });
+     }, this.handleAnswersOrder);
    }
 
    handleClickAnswer = (isCorrectAnswer) => {
@@ -46,7 +48,22 @@ class Game extends React.Component {
      console.log(isCorrectAnswer);
    }
 
-   randomizeQuestions = (arrayToRandomize) => {
+   handleAnswersOrder = () => {
+     const { gameQuestions } = this.state;
+     const answersWithOrder = [];
+
+     gameQuestions.map((question, index) => {
+       const randomOrder = this.randomizeArray([...gameQuestions[index].incorrect_answers,
+         gameQuestions[index].correct_answer]);
+       answersWithOrder.push(randomOrder);
+       return null;
+     });
+     this.setState({
+       answersWithOrder,
+     });
+   }
+
+   randomizeArray = (arrayToRandomize) => {
      const randomizeIndex = 0.5;
      return arrayToRandomize.sort(() => Math.random() - randomizeIndex);
    }
@@ -73,7 +90,8 @@ class Game extends React.Component {
        currentQuestion,
        isBtnDisabled,
        answerBorder,
-       answersTimer } = this.state;
+       answersTimer,
+       answersWithOrder } = this.state;
      return (
        <>
          <Header />
@@ -89,47 +107,40 @@ class Game extends React.Component {
                    </h2>
                    <p data-testid="question-text">
                      {/* {Utilizei do site "https://stackoverflow.com/questions/43011224/how-to-convert-string-with-039-convert-to-standard-charater" para encontrar os códigos do replace} */}
-                     {gameQuestions[currentQuestion].question
-                       .replace(/&amp;/g, '&')
-                       .replace(/&lt;/g, '<')
-                       .replace(/&gt;/g, '>')
-                       .replace(/&quot;/g, '"')
-                       .replace(/&#039;/g, '\'') }
-
+                     {he.decode(gameQuestions[currentQuestion].question) }
                    </p>
                  </div>
                  <p>{answersTimer}</p>
                  <div data-testid="answer-options" className="answer-container">
-                   { this.randomizeQuestions(
-                     [...gameQuestions[currentQuestion].incorrect_answers,
-                       gameQuestions[currentQuestion].correct_answer],
-                   )
-                     .map((answer, answerIndex) => (
-                       answer === gameQuestions[currentQuestion].correct_answer
-                         ? (
-                           <button
-                             className={ `${answerBorder}-correct answer` }
-                             type="button"
-                             data-testid="correct-answer"
-                             key={ `answer${answerIndex}` }
-                             onClick={ () => this.handleClickAnswer(true) }
-                             disabled={ isBtnDisabled }
-                           >
-                             {gameQuestions[currentQuestion].correct_answer}
+                   { answersWithOrder.length > 0
+                     ? answersWithOrder[currentQuestion]
+                       .map((answer, answerIndex) => (
+                         answer === gameQuestions[currentQuestion].correct_answer
+                           ? (
+                             <button
+                               className={ `${answerBorder}-correct answer` }
+                               type="button"
+                               data-testid="correct-answer"
+                               key={ `answer${answerIndex}` }
+                               onClick={ () => this.handleClickAnswer(true) }
+                               disabled={ isBtnDisabled }
+                             >
+                               {he.decode(answer)}
 
-                           </button>)
-                         : (
-                           <button
-                             key={ `incorrect${answerIndex}` }
-                             className={ `${answerBorder}-wrong answer` }
-                             type="button"
-                             data-testid={ `wrong-answer-${answerIndex}` }
-                             disabled={ isBtnDisabled }
-                             onClick={ () => this.handleClickAnswer(false) }
-                           >
-                             {answer}
+                             </button>)
+                           : (
+                             <button
+                               key={ `incorrect${answerIndex}` }
+                               className={ `${answerBorder}-wrong answer` }
+                               type="button"
+                               data-testid={ `wrong-answer-${answerIndex}` }
+                               disabled={ isBtnDisabled }
+                               onClick={ () => this.handleClickAnswer(false) }
+                             >
+                               {he.decode(answer)}
 
-                           </button>)))}
+                             </button>)))
+                     : null}
                  </div>
 
                </>
