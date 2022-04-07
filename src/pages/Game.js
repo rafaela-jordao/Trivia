@@ -14,11 +14,13 @@ class Game extends React.Component {
       currentQuestion: 0,
       isBtnDisabled: false,
       answerBorder: '',
+      answersTimer: 5,
     });
   }
 
   componentDidMount() {
     this.handleQuestions();
+    this.questionsTimeOut();
   }
 
    handleQuestions = async () => {
@@ -49,8 +51,29 @@ class Game extends React.Component {
      return arrayToRandomize.sort(() => Math.random() - randomizeIndex);
    }
 
+   questionsTimeOut = () => {
+     const oneSecond = 1000;
+     const { answersTimer } = this.state;
+     const timeToAnswer = setTimeout(() => {
+       if (answersTimer > 0) {
+         this.setState({ answersTimer: answersTimer - 1 });
+         this.questionsTimeOut();
+       } else {
+         clearTimeout(timeToAnswer);
+         this.setState({
+           isBtnDisabled: true,
+           answerBorder: 'border',
+         });
+       }
+     }, oneSecond);
+   }
+
    render() {
-     const { gameQuestions, currentQuestion, isBtnDisabled, answerBorder } = this.state;
+     const { gameQuestions,
+       currentQuestion,
+       isBtnDisabled,
+       answerBorder,
+       answersTimer } = this.state;
      return (
        <>
          <Header />
@@ -69,7 +92,7 @@ class Game extends React.Component {
 
                    </p>
                  </div>
-
+                 {/* <p>{answersTimer}</p> */}
                  <div data-testid="answer-options" className="answer-container">
                    { this.randomizeQuestions(
                      [...gameQuestions[currentQuestion].incorrect_answers,
