@@ -5,6 +5,12 @@ export const PLAYER = (player) => ({ type: 'PLAYER', player });
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const REQUEST_TOKEN_SUCCESS = 'REQUEST_TOKEN_SUCCESS';
 export const REQUEST_TOKEN_FAILURE = 'REQUEST_TOKEN_FAILURE';
+export const ADD_SCORE = 'ADD_SCORE';
+
+export const addScore = (score) => ({
+  type: ADD_SCORE,
+  score,
+});
 
 export const requestToken = () => ({
   type: REQUEST_TOKEN,

@@ -14,6 +14,11 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       ...action.player,
     };
+  case 'ADD_SCORE':
+    return {
+      ...state,
+      score: action.score,
+    };
   default:
     return state;
   }
