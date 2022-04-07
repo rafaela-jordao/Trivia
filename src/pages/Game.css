@@ -1,0 +1,27 @@
+:root {
+
+  --main-border-correct-color: rgb(6, 240, 15);
+
+  --main-border-wrong-color: red;
+}
+
+
+.border-correct {
+  border: 3px solid var(--main-border-correct-color);
+}
+
+.border-wrong {
+  border: 3px solid var(--main-border-wrong-color);
+}
+
+.answer-container {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1%;
+}
+
+.answer {
+  margin-bottom: 3%;
+  margin-inline: 10%;
+}

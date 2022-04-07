@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchToken } from '../actions/index';
 import Header from '../components/Header';
 import { getQuestions } from '../helpers/api';
+import './Game.css';
 
 class Game extends React.Component {
   constructor() {
@@ -11,6 +12,8 @@ class Game extends React.Component {
     this.state = ({
       gameQuestions: [],
       currentQuestion: 0,
+      isBtnDisabled: false,
+      answerBorder: '',
     });
   }
 
@@ -33,58 +36,21 @@ class Game extends React.Component {
      });
    }
 
+   handleClickAnswer = (isCorrectAnswer) => {
+     this.setState({
+       isBtnDisabled: true,
+       answerBorder: 'border',
+     });
+     console.log(isCorrectAnswer);
+   }
+
    randomizeQuestions = (arrayToRandomize) => {
      const randomizeIndex = 0.5;
      return arrayToRandomize.sort(() => Math.random() - randomizeIndex);
    }
 
-   //  render() {
-   //    const { gameQuestions } = this.state;
-   //    return (
-   //      <>
-   //        <Header />
-   //        {
-   //          gameQuestions.map((question, index) => {
-   //            const allAnswers = [...question.incorrect_answers, question.correct_answer];
-   //            const randomAnswers = this.randomizeQuestions(allAnswers);
-   //            return (
-   //              <div key={ `question${index}` }>
-   //                <div>
-   //                  <h2 data-testid="question-category">{question.category}</h2>
-   //                  <p data-testid="question-text">{question.question}</p>
-   //                </div>
-
-   //                <div data-testid="answer-options">
-
-   // {randomAnswers.map((answer, answerIndex) => (
-   //   answer === question.correct_answer
-   //     ? (
-   //       <button
-   //         type="button"
-   //         data-testid="correct-answer"
-   //         key={ `answer${answerIndex}` }
-   //       >
-   //         {question.correct_answer}
-
-   //       </button>)
-   //     : (
-   //       <button
-   //         key={ `incorrect${answerIndex}` }
-   //         type="button"
-   //         data-testid={ `wrong-answer-${answerIndex}` }
-   //       >
-   //         {answer}
-
-   //       </button>)))}
-   //                </div>
-   //              </div>);
-   //          })
-   //        }
-   //      </>
-   //    );
-   //  }
    render() {
-     const { gameQuestions, currentQuestion } = this.state;
+     const { gameQuestions, currentQuestion, isBtnDisabled, answerBorder } = this.state;
      return (
        <>
          <Header />
@@ -104,7 +70,7 @@ class Game extends React.Component {
                    </p>
                  </div>
 
-                 <div data-testid="answer-options">
+                 <div data-testid="answer-options" className="answer-container">
                    { this.randomizeQuestions(
                      [...gameQuestions[currentQuestion].incorrect_answers,
                        gameQuestions[currentQuestion].correct_answer],
@@ -113,9 +79,12 @@ class Game extends React.Component {
                        answer === gameQuestions[currentQuestion].correct_answer
                          ? (
                            <button
+                             className={ `${answerBorder}-correct answer` }
                              type="button"
                              data-testid="correct-answer"
                              key={ `answer${answerIndex}` }
+                             onClick={ () => this.handleClickAnswer(true) }
+                             disabled={ isBtnDisabled }
                            >
                              {gameQuestions[currentQuestion].correct_answer}
 
@@ -123,8 +92,11 @@ class Game extends React.Component {
                          : (
                            <button
                              key={ `incorrect${answerIndex}` }
+                             className={ `${answerBorder}-wrong answer` }
                              type="button"
                              data-testid={ `wrong-answer-${answerIndex}` }
+                             disabled={ isBtnDisabled }
+                             onClick={ () => this.handleClickAnswer(false) }
                            >
                              {answer}
 
