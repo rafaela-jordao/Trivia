@@ -65,7 +65,7 @@ class Game extends React.Component {
      });
    }
 
-   handleScore = (answerTime, difficulty) => {
+   handleScore = (answerTimer, difficulty) => {
      const { updateScore } = this.props;
      const BASE_POINTS = 10;
      const EASY_POINTS = 1;
@@ -84,7 +84,7 @@ class Game extends React.Component {
        difficulty = EASY_POINTS;
      }
 
-     const scoreToAdd = BASE_POINTS + (answerTime * difficultyPoints);
+     const scoreToAdd = BASE_POINTS + (answerTimer * difficultyPoints);
 
      updateScore(scoreToAdd);
    }
