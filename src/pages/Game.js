@@ -1,8 +1,8 @@
+import he from 'he';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import he from 'he';
-import { fetchToken, addScore } from '../actions/index';
+import { addScore, fetchToken } from '../actions/index';
 import Header from '../components/Header';
 import { getQuestions } from '../helpers/api';
 import './Game.css';
@@ -17,6 +17,7 @@ class Game extends React.Component {
       answerBorder: '',
       answersTimer: 30,
       answersWithOrder: [],
+      nextButton: false,
     });
   }
 
@@ -48,6 +49,9 @@ class Game extends React.Component {
      });
 
      if (isCorrectAnswer) this.handleScore(answersTimer, difficulty);
+     this.setState({
+       nextButton: true,
+     });
    }
 
    handleAnswersOrder = () => {
@@ -94,6 +98,21 @@ class Game extends React.Component {
      return arrayToRandomize.sort(() => Math.random() - randomizeIndex);
    }
 
+   handleNextButtonClick = () => {
+     const { currentQuestion } = this.state;
+     const { history } = this.props;
+     this.setState({
+       currentQuestion: currentQuestion + 1,
+       nextButton: false,
+       answerBorder: '',
+       isBtnDisabled: false,
+     });
+     const LASTQUESTION = 4;
+     if (currentQuestion === LASTQUESTION) {
+       history.push('/feedback');
+     }
+   }
+
    questionsTimeOut = () => {
      const oneSecond = 1000;
      const { answersTimer } = this.state;
@@ -117,7 +136,8 @@ class Game extends React.Component {
        isBtnDisabled,
        answerBorder,
        answersTimer,
-       answersWithOrder } = this.state;
+       answersWithOrder,
+       nextButton } = this.state;
      return (
        <>
          <Header />
@@ -170,6 +190,19 @@ class Game extends React.Component {
 
                              </button>)))
                      : null}
+                   <div>
+                     {nextButton
+                       ? (
+                         <button
+                           className="nextButton"
+                           type="button"
+                           data-testid="btn-next"
+                           onClick={ this.handleNextButtonClick }
+                         >
+                           Próxima
+                         </button>)
+                       : null}
+                   </div>
                  </div>
 
                </>
@@ -194,6 +227,9 @@ Game.propTypes = {
   token: PropTypes.string.isRequired,
   getPlayerToken: PropTypes.func.isRequired,
   updateScore: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
