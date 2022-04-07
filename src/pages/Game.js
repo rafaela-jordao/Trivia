@@ -81,7 +81,7 @@ class Game extends React.Component {
        difficultyPoints = HARD_POINTS;
        break;
      default:
-       difficulty = EASY_POINTS;
+       difficultyPoints = EASY_POINTS;
      }
 
      const scoreToAdd = BASE_POINTS + (answerTimer * difficultyPoints);
