@@ -88,7 +88,13 @@ class Game extends React.Component {
 
                    </h2>
                    <p data-testid="question-text">
-                     {gameQuestions[currentQuestion].question}
+                     {/* {Utilizei do site "https://stackoverflow.com/questions/43011224/how-to-convert-string-with-039-convert-to-standard-charater" para encontrar os códigos do replace} */}
+                     {gameQuestions[currentQuestion].question
+                       .replace(/&amp;/g, '&')
+                       .replace(/&lt;/g, '<')
+                       .replace(/&gt;/g, '>')
+                       .replace(/&quot;/g, '"')
+                       .replace(/&#039;/g, '\'') }
 
                    </p>
                  </div>
