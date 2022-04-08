@@ -4,8 +4,14 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends React.Component {
+  
   componentDidMount() {
     this.Salvar();
+  }
+  
+  redirectRanking = () => {
+    const { history } = this.props;
+    history.push('/ranking');
   }
 
   Salvar = () => {
@@ -37,6 +43,14 @@ class Feedback extends React.Component {
         <p data-testid="feedback-total-question">
           { correctAnswer }
         </p>
+
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ this.redirectRanking }
+        >
+          Ranking
+        </button>
       </div>
     );
   }
@@ -47,6 +61,10 @@ const mapStateToProps = (state) => ({
 });
 
 Feedback.propTypes = {
+  answer: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   correctAnswer: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
 };
