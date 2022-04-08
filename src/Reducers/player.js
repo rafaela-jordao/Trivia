@@ -24,6 +24,12 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       assertions: action.answer,
     };
+  case 'RESET_SCORE':
+    return {
+      ...state,
+      score: 0,
+      assertions: 0,
+    };
   default:
     return state;
   }
