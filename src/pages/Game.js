@@ -25,9 +25,13 @@ class Game extends React.Component {
   componentDidMount() {
     this.handleQuestions();
     this.questionsTimeOut();
-    this.setState({
-      correctAnswers: 0,
-    });
+    this.setState({ correctAnswers: 0 });
+    const oneSecond = 1000;
+    this.timer = setInterval(this.questionsTimeOut, oneSecond);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
    handleQuestions = async () => {
@@ -59,9 +63,7 @@ class Game extends React.Component {
        });
      }
 
-     this.setState({
-       nextButton: true,
-     });
+     this.setState({ nextButton: true, answersTimer: '' });
    }
 
    handleAnswersOrder = () => {
@@ -74,9 +76,7 @@ class Game extends React.Component {
        answersWithOrder.push(randomOrder);
        return null;
      });
-     this.setState({
-       answersWithOrder,
-     });
+     this.setState({ answersWithOrder });
    }
 
    handleScore = (answerTimer, difficulty) => {
@@ -108,6 +108,24 @@ class Game extends React.Component {
      return arrayToRandomize.sort(() => Math.random() - randomizeIndex);
    }
 
+   questionsTimeOut = () => {
+     const { answersTimer } = this.state;
+
+     if (answersTimer > 0) {
+       this.setState({
+         answersTimer: answersTimer - 1,
+       });
+     }
+     if (answersTimer === 0) {
+       this.setState({
+         isBtnDisabled: true,
+         answerBorder: 'border',
+         nextButton: true,
+         answersTimer: 0,
+       });
+     }
+   }
+
    handleNextButtonClick = () => {
      const { currentQuestion, correctAnswers } = this.state;
      const { history, updateAnswer } = this.props;
@@ -117,27 +135,11 @@ class Game extends React.Component {
        answersTimer: 30,
        answerBorder: '',
        isBtnDisabled: false,
-     }, this.questionsTimeOut());
+     });
      const LASTQUESTION = 4;
      if (currentQuestion === LASTQUESTION) {
        updateAnswer(correctAnswers);
        history.push('/feedback');
-     }
-   }
-
-   questionsTimeOut = () => {
-     const oneSecond = 1000;
-     const { answersTimer } = this.state;
-     const timeToAnswer = setTimeout(() => {
-       this.setState({ answersTimer: answersTimer - 1 });
-     }, oneSecond);
-     if (answersTimer === 0) {
-       clearTimeout(timeToAnswer);
-       this.setState({
-         isBtnDisabled: true,
-         answerBorder: 'border',
-         nextButton: true,
-       });
      }
    }
 
@@ -163,7 +165,6 @@ class Game extends React.Component {
 
                    </h2>
                    <p data-testid="question-text">
-                     {/* {Utilizei do site "https://stackoverflow.com/questions/43011224/how-to-convert-string-with-039-convert-to-standard-charater" para encontrar os códigos do replace} */}
                      {he.decode(gameQuestions[currentQuestion].question) }
                    </p>
                  </div>
