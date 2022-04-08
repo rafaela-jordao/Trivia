@@ -2,7 +2,7 @@ import he from 'he';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { addAnswer, addScore, fetchToken } from '../actions/index';
+import { addAnswer, addScore, fetchToken, resetScore } from '../actions/index';
 import Header from '../components/Header';
 import { getQuestions } from '../helpers/api';
 import './Game.css';
@@ -23,8 +23,10 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
+    const { setScoreToZero } = this.props;
     this.handleQuestions();
     this.questionsTimeOut();
+    setScoreToZero();
     this.setState({ correctAnswers: 0 });
     const oneSecond = 1000;
     this.timer = setInterval(this.questionsTimeOut, oneSecond);
@@ -58,12 +60,10 @@ class Game extends React.Component {
 
      if (isCorrectAnswer) {
        this.handleScore(answersTimer, difficulty);
-       this.setState({
-         correctAnswers: correctAnswers + 1,
-       });
+       this.setState({ correctAnswers: correctAnswers + 1 });
      }
 
-     this.setState({ nextButton: true, answersTimer: '' });
+     this.setState({ nextButton: true, answersTimer: 0 });
    }
 
    handleAnswersOrder = () => {
@@ -112,9 +112,7 @@ class Game extends React.Component {
      const { answersTimer } = this.state;
 
      if (answersTimer > 0) {
-       this.setState({
-         answersTimer: answersTimer - 1,
-       });
+       this.setState({ answersTimer: answersTimer - 1 });
      }
      if (answersTimer === 0) {
        this.setState({
@@ -228,6 +226,7 @@ class Game extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getPlayerToken: () => dispatch(fetchToken()),
+  setScoreToZero: () => dispatch(resetScore()),
   updateScore: (newScore) => dispatch(addScore(newScore)),
   updateAnswer: (newAnswer) => dispatch(addAnswer(newAnswer)),
 });
@@ -240,6 +239,7 @@ Game.propTypes = {
   token: PropTypes.string.isRequired,
   getPlayerToken: PropTypes.func.isRequired,
   updateAnswer: PropTypes.func.isRequired,
+  setScoreToZero: PropTypes.func.isRequired,
   updateScore: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
