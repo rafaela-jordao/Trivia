@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   assertions: 0,
   score: 0,
   gravatarEmail: '',
-  answer: 0,
 
 };
 
@@ -23,7 +22,7 @@ function player(state = INITIAL_STATE, action) {
   case 'ADD_ANSWER':
     return {
       ...state,
-      answer: action.answer,
+      assertions: action.answer,
     };
   default:
     return state;

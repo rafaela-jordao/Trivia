@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
 class Feedback extends React.Component {
   componentDidMount() {
-    this.Salvar();
+    this.saveRecordInLocalStorage();
   }
 
     handleClickPlayAgain = () => {
@@ -18,7 +18,7 @@ class Feedback extends React.Component {
     history.push('/ranking');
   }
 
-  Salvar = () => {
+  saveRecordInLocalStorage = () => {
     const { score, gravatarEmail, name } = this.props;
     const gravatarURL = 'https://www.gravatar.com/avatar/';
     const currentRecords = localStorage.getItem('ranking');
@@ -34,13 +34,13 @@ class Feedback extends React.Component {
 
   render() {
     const { correctAnswer, score } = this.props;
-    const TRES = 3;
+    const numberOfAnswers = 3;
     return (
 
       <>
         <Header />
         {
-          correctAnswer >= TRES
+          correctAnswer >= numberOfAnswers
             ? (
               <p data-testid="feedback-text">
                 Well Done!
@@ -77,7 +77,7 @@ class Feedback extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  correctAnswer: state.player.answer,
+  correctAnswer: state.player.assertions,
   score: state.player.score,
   name: state.player.name,
   gravatarEmail: state.player.gravatarEmail,
