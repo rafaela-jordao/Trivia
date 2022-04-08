@@ -25,6 +25,9 @@ class Game extends React.Component {
   componentDidMount() {
     this.handleQuestions();
     this.questionsTimeOut();
+    this.setState({
+      correctAnswers: 0,
+    });
   }
 
    handleQuestions = async () => {

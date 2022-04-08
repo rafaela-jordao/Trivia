@@ -4,31 +4,45 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends React.Component {
+  
+  componentDidMount() {
+    this.Salvar();
+  }
+  
   redirectRanking = () => {
     const { history } = this.props;
     history.push('/ranking');
   }
 
+  Salvar = () => {
+    const { correctAnswer, score } = this.props;
+    localStorage.setItem('correctAnswer', `${correctAnswer}`);
+    localStorage.setItem('score', `${score}`);
+  };
+
   render() {
-    const { answer } = this.props;
+    const { correctAnswer, score } = this.props;
     const TRES = 3;
     return (
       <div>
-        <div>
-          <Header />
-          {
-            answer >= TRES
-              ? (
-                <p data-testid="feedback-text">
-                  Well Done!
-                </p>)
-              : (
-                <p data-testid="feedback-text">
-                  Could be better...
-                </p>)
-          }
-
-        </div>
+        <Header />
+        {
+          correctAnswer >= TRES
+            ? (
+              <p data-testid="feedback-text">
+                Well Done!
+              </p>)
+            : (
+              <p data-testid="feedback-text">
+                Could be better...
+              </p>)
+        }
+        <p data-testid="feedback-total-score">
+          { score }
+        </p>
+        <p data-testid="feedback-total-question">
+          { correctAnswer }
+        </p>
 
         <button
           type="button"
@@ -42,7 +56,8 @@ class Feedback extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  answer: state.player.answer,
+  correctAnswer: state.player.answer,
+  score: state.player.score,
 });
 
 Feedback.propTypes = {
@@ -50,6 +65,8 @@ Feedback.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  correctAnswer: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
