@@ -56,4 +56,5 @@ Header.defaultProps = {
   email: PropTypes.null,
 };
 
+// teste
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
