@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchToken, PLAYER } from '../actions/index';
 // import getToken from '../helpers/api';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -60,21 +61,24 @@ class Login extends React.Component {
     const { playerBtn, name, email } = this.state;
     return (
       <div>
-        <form>
+        <form className="form-login">
+          <h1>Trivia Game</h1>
           <label htmlFor="name">
             <input
-              placeholder="Digite seu Nome"
+              placeholder="Name"
               value={ name }
               name="name"
               type="text"
+              id="name"
               data-testid="input-player-name"
               onChange={ this.handleChange }
             />
           </label>
           <label htmlFor="email">
             <input
-              placeholder="Digite seu Email"
+              placeholder="E-mail"
               value={ email }
+              id="email"
               name="email"
               type="email"
               data-testid="input-gravatar-email"
@@ -84,21 +88,23 @@ class Login extends React.Component {
 
           <button
             name="btnPlay"
+            id="btnplay"
             type="button"
             data-testid="btn-play"
             disabled={ !playerBtn }
             onClick={ this.handleClickPlay }
           >
-            Jogar
+            Play
+          </button>
+          <button
+            type="button"
+            id="btnconfiguracoes"
+            onClick={ this.handleClickSettings }
+            data-testid="btn-settings"
+          >
+            Settings
           </button>
         </form>
-        <button
-          type="button"
-          onClick={ this.handleClickSettings }
-          data-testid="btn-settings"
-        >
-          Configurações
-        </button>
       </div>
 
     );
