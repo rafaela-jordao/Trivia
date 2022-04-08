@@ -9,6 +9,11 @@ class Feedback extends React.Component {
     this.Salvar();
   }
   
+    handleClickPlayAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+  
   redirectRanking = () => {
     const { history } = this.props;
     history.push('/ranking');
@@ -24,6 +29,7 @@ class Feedback extends React.Component {
     const { correctAnswer, score } = this.props;
     const TRES = 3;
     return (
+       
       <div>
         <Header />
         {
@@ -51,7 +57,15 @@ class Feedback extends React.Component {
         >
           Ranking
         </button>
-      </div>
+         <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.handleClickPlayAgain }
+        >
+          Play Again
+
+        </button>
+      </>
     );
   }
 }
@@ -67,6 +81,7 @@ Feedback.propTypes = {
   }).isRequired,
   correctAnswer: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+
 };
 
 export default connect(mapStateToProps)(Feedback);
