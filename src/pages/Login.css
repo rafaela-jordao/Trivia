@@ -4,27 +4,19 @@
   padding: 0;
 }
 
-body {
+.login {
   background: url('https://gifmania.com.br/wp-content/uploads/2020/08/interrogacoes.gif') no-repeat center fixed;
   background-size: cover;
-
-  /* background-image: url(https://gifmania.com.br/wp-content/uploads/2020/08/interrogacoes.gif);
-  background-repeat: no-repeat;
-  background-size: cover;  */
-  height: 100%;
-  width: 100%;
-}
-
-div, form {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  align-items: center;
+  height: 100vh;
 }
 
 .form-login {
   align-items: center;
   background-color: rgb(182, 241, 228);
-  background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngaaa.com%2Fdetail%2F57049&psig=AOvVaw3TlNbjW8gOaSYejKF6pMgd&ust=1649537070672000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCPiWgNaqhfcCFQAAAAAdAAAAABAS);
+  /* background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngaaa.com%2Fdetail%2F57049&psig=AOvVaw3TlNbjW8gOaSYejKF6pMgd&ust=1649537070672000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCPiWgNaqhfcCFQAAAAAdAAAAABAS); */
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -68,6 +60,7 @@ h1 {
   color: white;
   height: 30px;
   width: 150px;
+  text-align: center;
 }
 
 #btnconfiguracoes {
@@ -77,6 +70,7 @@ h1 {
   color: white;
   height: 30px;
   width: 150px;
+  text-align: center;
 
 }
 
@@ -94,9 +88,9 @@ h1 {
 
 }
 
-#btnconfiguraçoes:hover {
+#btnconfiguracoes:hover {
   background-color: rgb(204, 199, 198) d;
-  border: 2px solid rgb(163, 39, 39);
+  border: 2px solid rgb(246, 235, 235);
   color: white;
   cursor: pointer;
   height: 45px;

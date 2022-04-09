@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PLAYER } from '../actions/index';
+import './Header.css';
 
 class Header extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class Header extends Component {
           data-testid="header-profile-picture"
           src={ gravatarSrc }
           alt="Gravatar"
+          id="imagem"
         />
         <p data-testid="header-player-name">{player}</p>
         <p data-testid="header-score">{score}</p>

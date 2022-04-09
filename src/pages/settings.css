@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .bodySettings {
+    background: url('https://gifmania.com.br/wp-content/uploads/2020/08/interrogacoes.gif') no-repeat center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+.container {
+    align-items: center;
+    background-color: rgb(182, 241, 228);
+    /* background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngaaa.com%2Fdetail%2F57049&psig=AOvVaw3TlNbjW8gOaSYejKF6pMgd&ust=1649537070672000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCPiWgNaqhfcCFQAAAAAdAAAAABAS); */
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    justify-content: space-evenly;
+    opacity: 0.88;
+    width: 300px;
+    z-index: 5;
+    font-size: 20px;
+}
+
+#category-input {
+    background-color: rgb(0, 0, 0);
+    border: 2px solid rgb(14, 13, 13);
+    border-radius: 30px;
+    color: white;
+    height: 20px;
+    width: 150px;
+}
+
+#difficulty-input {
+    background-color: rgb(0, 0, 0);
+    border: 2px solid rgb(14, 13, 13);
+    border-radius: 30px;
+    color: white;
+    height: 20px;
+    width: 150px;
+
+}
+
+#type-input {
+    background-color: rgb(0, 0, 0);
+    border: 2px solid rgb(14, 13, 13);
+    border-radius: 30px;
+    color: white;
+    height: 20px;
+    width: 150px;
+
+}

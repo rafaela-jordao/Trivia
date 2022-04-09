@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+.bodyFeedback {
+  background-color: rgb(15, 129, 125);
+  height: 100vh;
+
+}
+
+.container {
+    background-color: rgb(182, 241, 228);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    opacity: 0.88;
+    width: 300px;
+    align-items: center;
+    font-size: 25px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+#btnRanking {
+    background-color: rgb(0, 0, 0);
+    border: 2px solid rgb(14, 13, 13);
+    border-radius: 30px;
+    color: white;
+    height: 30px;
+    width: 150px;
+}
+
+#btnPlay {
+  background-color: rgb(0, 0, 0);
+  border: 2px solid rgb(14, 13, 13);
+  border-radius: 30px;
+  color: white;
+  height: 30px;
+  width: 150px;
+}
+
+#btnRanking:hover {
+    background-color: rgb(230, 231, 235);
+    border: 2px solid rgb(246, 235, 235);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    height: 45px;
+    width: 170px;
+
+}
+
+#btnPlay:hover {
+    background-color: rgb(241, 237, 236);
+    border: 2px solid rgb(246, 235, 235);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    height: 45px;
+    width: 170px;
+
+}

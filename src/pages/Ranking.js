@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Ranking.css';
 
 class Ranking extends React.Component {
   constructor() {
@@ -32,8 +33,8 @@ class Ranking extends React.Component {
     render() {
       const { records } = this.state;
       return (
-        <div>
-          <h1 data-testid="ranking-title">Ranking</h1>
+        <div className="bodyRanking">
+          <h1 id="titulo" data-testid="ranking-title">Ranking</h1>
           <ul>
             {records.length > 0
               ? records.map((record, index) => (
@@ -47,6 +48,7 @@ class Ranking extends React.Component {
               : null}
           </ul>
           <button
+            id="button"
             type="button"
             data-testid="btn-go-home"
             onClick={ this.redirectLogin }

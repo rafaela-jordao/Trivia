@@ -1,4 +1,5 @@
 import React from 'react';
+import './settings.css';
 
 class Settings extends React.Component {
   constructor() {
@@ -20,13 +21,13 @@ class Settings extends React.Component {
   render() {
     const { category, difficulty, type } = this.state;
     return (
-      <>
-        <h1
-          data-testid="settings-title"
-        >
-          Configurações!!
-        </h1>
-        <form>
+      <div className="bodySettings">
+        <form className="container">
+          <h3
+            data-testid="settings-title"
+          >
+            Configurações!!
+          </h3>
           <label htmlFor="category-input">
             Categoria
             <select
@@ -68,7 +69,7 @@ class Settings extends React.Component {
             </select>
           </label>
         </form>
-      </>);
+      </div>);
   }
 }
 

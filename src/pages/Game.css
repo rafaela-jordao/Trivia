@@ -15,13 +15,95 @@
 }
 
 .answer-container {
-  align-items: stretch;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1%;
+  justify-content: space-evenly;
 }
 
 .answer {
   margin-bottom: 3%;
   margin-inline: 10%;
+  width: 100px;
+  background-color: rgb(44, 88, 124);
+  border-radius: 10px;
+  color: white;
+  height: 30px;
+  width: 400px;
+  display: flex;
+  font-size: 15px;
+  justify-content: center;
 }
+
+.bodyGame {
+  background-color: rgb(15, 129, 125);
+  height: 100vh;
+
+}
+
+.categoria {
+background: rgb(5, 154, 160);
+padding: 10px;
+text-align: center;
+display: flex;
+ justify-content: space-evenly;
+flex-direction: column;
+height: 200px;
+width: 400px;
+border-radius: 10px;
+color: white;
+box-shadow: 1px 2px 1px rgb(135, 228, 245);
+}
+
+hr {
+margin-bottom: 15px;
+margin-top: -10px;
+}
+
+h2 {
+ margin-top: -22px;
+
+}
+
+#timer {
+  background-color: rgb(98, 209, 202);
+  border-radius: 1000px;
+  height: 35px;
+  width: 35px;
+  font-size: 25px;
+  margin-top: 100px;
+  text-align: center;
+  margin-top: -50px;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.nextButton {
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 253, 253);
+  border-radius: 40px;
+  color: black;
+  height: 30px;
+  width: 150px;
+  text-align: center;
+  margin-top: 55px;
+  margin-left: 50px;
+}
+
+.gameContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 150px;
+  text-align: center;
+}
+.nextButton:hover {
+  background-color: rgb(8, 8, 8) d;
+  border: 2px solid rgb(3, 3, 3);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  height: 45px;
+  width: 170px;
+  box-shadow: 1px 1px black;
+}
+

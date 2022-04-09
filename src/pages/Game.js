@@ -142,31 +142,30 @@ class Game extends React.Component {
    }
 
    render() {
-     const { gameQuestions,
-       currentQuestion,
-       isBtnDisabled,
+     const { gameQuestions, currentQuestion, isBtnDisabled,
        answerBorder,
        answersTimer,
        answersWithOrder,
        nextButton } = this.state;
      return (
-       <>
+       <div className="bodyGame">
          <Header />
          {
 
            gameQuestions.length > 0
              ? (
-               <>
-                 <div>
+               <div className="gameContainer">
+                 <div className="categoria">
                    <h2 data-testid="question-category">
                      {gameQuestions[currentQuestion].category}
 
                    </h2>
+                   <hr />
                    <p data-testid="question-text">
                      {he.decode(gameQuestions[currentQuestion].question) }
                    </p>
                  </div>
-                 <p>{answersTimer}</p>
+                 <p id="timer">{answersTimer}</p>
                  <div data-testid="answer-options" className="answer-container">
                    { answersWithOrder.length > 0
                      ? answersWithOrder[currentQuestion]
@@ -189,6 +188,7 @@ class Game extends React.Component {
                              </button>)
                            : (
                              <button
+                               id="btnResposta"
                                key={ `incorrect${answerIndex}` }
                                className={ `${answerBorder}-wrong answer` }
                                type="button"
@@ -215,11 +215,11 @@ class Game extends React.Component {
                    </div>
                  </div>
 
-               </>
+               </div>
              )
              : null
          }
-       </>
+       </div>
      );
    }
 }

@@ -60,7 +60,7 @@ class Login extends React.Component {
   render() {
     const { playerBtn, name, email } = this.state;
     return (
-      <div>
+      <div className="login">
         <form className="form-login">
           <h1>Trivia Game</h1>
           <label htmlFor="name">
