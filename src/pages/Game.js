@@ -37,10 +37,13 @@ class Game extends React.Component {
   }
 
    handleQuestions = async () => {
-     const { token, getPlayerToken } = this.props;
+     const { token, getPlayerToken, category, typeOfQuestion, difficulty } = this.props;
+     console.log(typeOfQuestion);
      const TOKEN_NOT_FOUND = 3;
-     const fetchQuestions = await getQuestions(token);
-     if (fetchQuestions.code === TOKEN_NOT_FOUND) {
+     const TOKEN_EMPTY = 4;
+     const fetchQuestions = await
+     getQuestions({ token, category, difficulty, typeOfQuestion });
+     if (fetchQuestions.code === TOKEN_NOT_FOUND || fetchQuestions.code === TOKEN_EMPTY) {
        getPlayerToken();
        this.handleQuestions();
        return;
@@ -85,7 +88,6 @@ class Game extends React.Component {
      const EASY_POINTS = 1;
      const MEDIUM_POINTS = 2;
      const HARD_POINTS = 3;
-
      let difficultyPoints = 1;
      switch (difficulty) {
      case 'medium':
@@ -97,9 +99,7 @@ class Game extends React.Component {
      default:
        difficultyPoints = EASY_POINTS;
      }
-
      const scoreToAdd = BASE_POINTS + (answerTimer * difficultyPoints);
-
      updateScore(scoreToAdd);
    }
 
@@ -115,12 +115,10 @@ class Game extends React.Component {
        this.setState({ answersTimer: answersTimer - 1 });
      }
      if (answersTimer === 0) {
-       this.setState({
-         isBtnDisabled: true,
+       this.setState({ isBtnDisabled: true,
          answerBorder: 'border',
          nextButton: true,
-         answersTimer: 0,
-       });
+         answersTimer: 0 });
      }
    }
 
@@ -151,14 +149,12 @@ class Game extends React.Component {
        <div className="bodyGame">
          <Header />
          {
-
            gameQuestions.length > 0
              ? (
                <div className="gameContainer">
                  <div className="categoria">
                    <h2 data-testid="question-category">
                      {gameQuestions[currentQuestion].category}
-
                    </h2>
                    <hr />
                    <p data-testid="question-text">
@@ -184,7 +180,6 @@ class Game extends React.Component {
                                disabled={ isBtnDisabled }
                              >
                                {he.decode(answer)}
-
                              </button>)
                            : (
                              <button
@@ -197,7 +192,6 @@ class Game extends React.Component {
                                onClick={ () => this.handleClickAnswer(false, null) }
                              >
                                {he.decode(answer)}
-
                              </button>)))
                      : null}
                    <div>
@@ -214,10 +208,8 @@ class Game extends React.Component {
                        : null}
                    </div>
                  </div>
-
                </div>
-             )
-             : null
+             ) : null
          }
        </div>
      );
@@ -233,10 +225,16 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   token: state.token,
+  category: state.player.category,
+  difficulty: state.player.difficulty,
+  typeOfQuestion: state.player.typeOfQuestion,
 });
 
 Game.propTypes = {
   token: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  typeOfQuestion: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
   getPlayerToken: PropTypes.func.isRequired,
   updateAnswer: PropTypes.func.isRequired,
   setScoreToZero: PropTypes.func.isRequired,

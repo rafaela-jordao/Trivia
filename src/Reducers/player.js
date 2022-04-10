@@ -4,7 +4,9 @@ const INITIAL_STATE = {
   assertions: 0,
   score: 0,
   gravatarEmail: '',
-
+  category: '',
+  difficulty: '',
+  typeOfQuestion: '',
 };
 
 function player(state = INITIAL_STATE, action) {
@@ -29,6 +31,21 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       score: 0,
       assertions: 0,
+    };
+  case 'GET_CATEGORY':
+    return {
+      ...state,
+      category: action.category,
+    };
+  case 'GET_DIFFICULTY':
+    return {
+      ...state,
+      difficulty: action.difficulty,
+    };
+  case 'GET_TYPE':
+    return {
+      ...state,
+      typeOfQuestion: action.typeOfQuestion,
     };
   default:
     return state;

@@ -8,6 +8,9 @@ export const REQUEST_TOKEN_FAILURE = 'REQUEST_TOKEN_FAILURE';
 export const ADD_SCORE = 'ADD_SCORE';
 export const ADD_ANSWER = 'ADD_ANSWER';
 export const RESET_SCORE = 'RESET_SCORE';
+export const GET_CATEGORY = 'GET_CATEGORY';
+export const GET_DIFFICULTY = 'GET_DIFFICULTY';
+export const GET_TYPE = 'GET_TYPE';
 
 export const addScore = (score) => ({
   type: ADD_SCORE,
@@ -21,6 +24,21 @@ export const addAnswer = (answer) => ({
 
 export const resetScore = () => ({
   type: RESET_SCORE,
+});
+
+export const getCategory = (category) => ({
+  type: GET_CATEGORY,
+  category,
+});
+
+export const getDifficulty = (difficulty) => ({
+  type: GET_DIFFICULTY,
+  difficulty,
+});
+
+export const getType = (typeOfQuestion) => ({
+  type: GET_TYPE,
+  typeOfQuestion,
 });
 
 export const requestToken = () => ({

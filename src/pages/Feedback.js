@@ -6,7 +6,7 @@ import './FeedBack.css';
 
 class Feedback extends React.Component {
   componentDidMount() {
-    this.Salvar();
+    this.SaveRecord();
   }
 
     handleClickPlayAgain = () => {
@@ -19,7 +19,7 @@ class Feedback extends React.Component {
     history.push('/ranking');
   }
 
-  Salvar = () => {
+  SaveRecord = () => {
     const { correctAnswer, score } = this.props;
     localStorage.setItem('correctAnswer', `${correctAnswer}`);
     localStorage.setItem('score', `${score}`);
@@ -83,7 +83,6 @@ Feedback.propTypes = {
   }).isRequired,
   correctAnswer: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-
 };
 
 export default connect(mapStateToProps)(Feedback);
