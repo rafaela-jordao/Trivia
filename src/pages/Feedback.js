@@ -44,7 +44,11 @@ class Feedback extends React.Component {
                 </p>)
           }
           <p data-testid="feedback-total-score">
+            You Scored
+            {' '}
             { score }
+            {' '}
+            Points
           </p>
           <p data-testid="feedback-total-question">
             { correctAnswer }

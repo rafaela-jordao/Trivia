@@ -27,11 +27,15 @@ class Header extends Component {
           alt="Gravatar"
           id="imagem"
         />
-        <p data-testid="header-player-name">{player}</p>
+        <p data-testid="header-player-name">
+          {player}
+        </p>
         <p
           className="score"
           data-testid="header-score"
         >
+          Total Points:
+          {' '}
           {score}
 
         </p>

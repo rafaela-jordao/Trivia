@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import './Ranking.css';
 
 class Ranking extends React.Component {
@@ -35,18 +35,20 @@ class Ranking extends React.Component {
       return (
         <div className="bodyRanking">
           <h1 id="titulo" data-testid="ranking-title">Ranking</h1>
-          <ul>
-            {records.length > 0
-              ? records.map((record, index) => (
-                <div key={ index }>
-                  <li>
-                    <img src={ record.picture } alt="player icon" />
-                    <p data-testid={ `player-name-${index}` }>{record.name}</p>
-                    <p data-testid={ `player-score-${index}` }>{record.score}</p>
-                  </li>
-                </div>))
-              : null}
-          </ul>
+          <div className="container-points">
+            <ul>
+              {records.length > 0
+                ? records.map((record, index) => (
+                  <div key={ index }>
+                    <li className="pontos">
+                      <img className="image" src={ record.picture } alt="player icon" />
+                      <p data-testid={ `player-name-${index}` }>{record.name}</p>
+                      <p data-testid={ `player-score-${index}` }>{record.score}</p>
+                    </li>
+                  </div>))
+                : null}
+            </ul>
+          </div>
           <button
             id="button"
             type="button"

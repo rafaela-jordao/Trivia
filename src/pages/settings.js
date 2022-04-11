@@ -1,9 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import './settings.css';
+import React from 'react';
 import { connect } from 'react-redux';
-import { getCategorys } from '../helpers/api';
 import { getCategory, getDifficulty, getType } from '../actions/index';
+import { getCategorys } from '../helpers/api';
+import './settings.css';
 
 class Settings extends React.Component {
   constructor() {
@@ -58,10 +58,11 @@ class Settings extends React.Component {
           <h3
             data-testid="settings-title"
           >
-            Settings!!
+            Settings
           </h3>
+
           <label htmlFor="category-input">
-            Categories:
+            Categories
             <select
               id="category-input"
               onChange={ this.handleChange }
@@ -69,7 +70,7 @@ class Settings extends React.Component {
               name="category"
               onClick={ (event) => this.handleCategory(event.target.value) }
             >
-              <option value="">default</option>
+              <option value="">Default</option>
               {listOfCategories.length > 0
                 ? listOfCategories[0]
                   .map((currCategory) => (
@@ -82,8 +83,9 @@ class Settings extends React.Component {
                 : null}
             </select>
           </label>
+
           <label htmlFor="difficulty-input">
-            Difficulty:
+            Difficulty
             <select
               id="difficulty-input"
               onChange={ this.handleChange }
@@ -98,7 +100,7 @@ class Settings extends React.Component {
             </select>
           </label>
           <label htmlFor="type-input">
-            Type of questions:
+            Type of questions
             <select
               id="type-input"
               onChange={ this.handleChange }
@@ -116,7 +118,7 @@ class Settings extends React.Component {
             type="button"
             onClick={ this.handleClickReturnMenu }
           >
-            Return to Main Menu
+            Return
 
           </button>
         </form>

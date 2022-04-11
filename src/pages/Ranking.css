@@ -7,9 +7,10 @@
 .bodyRanking {
   align-items: center;
   background-color: rgb(84, 132, 187);
-  display: grid;
+  display: flex;
   height: 100vh;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 #button {
@@ -26,9 +27,35 @@
 
 }
 
+.image {
+  border-radius: 30px;
+  margin-left: 8px;
+  width: 8%;
+  padding: 10px;
+
+}
+
+.container-points {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: flex-start;
+  margin-inline: 0;
+  margin-left: 160px;
+}
+
 h1 {
   color: white;
   font-size: 3rem;
+}
+
+.pontos {
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
+  align-items: center;
+
 }
 
 

@@ -32,6 +32,7 @@
   border-radius: 30px;
   color: white;
   height: 30px;
+  margin-inline: auto;
   width: 150px;
 }
 
@@ -42,6 +43,7 @@
   color: white;
   height: 30px;
   width: 150px;
+  margin-inline: auto;
 }
 
 #btnRanking:hover {

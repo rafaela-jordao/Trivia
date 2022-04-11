@@ -18,29 +18,32 @@
 }
 
 .container {
-  align-items: center;
+  align-items: stretch;
+  align-content: center;
   background-color: rgb(182, 241, 228);
   border-radius: 15px;
-  display: grid;
+  display: flex;
   height: 400px;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: auto;
   opacity: 0.88;
   text-align: center;
   width: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 2px 50px;
 
 }
 
 .container > button {
-  align-items: center;
   appearance: none;
   background-image: linear-gradient(to right, #00b7ff 0%, #06f 51%, #00f7ff 100%);
   background-size: 200% auto;
   border: none;
   border-radius: 20px;
   color: white;
-  display: grid;
-  height: 50px;
+  display: flex;
+  height: 35px;
   justify-content: center;
   margin-left: 25%;
   padding: 10px 24px;
@@ -65,14 +68,24 @@ select {
   border-radius: 15px;
   color: white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  text-align: center;
   padding: 2px;
-  width: 150px;
+  width: 100%;
+  margin-top: 5px;
+
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 
 }
 
 label {
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
 }
 

@@ -203,7 +203,7 @@ class Game extends React.Component {
                            data-testid="btn-next"
                            onClick={ this.handleNextButtonClick }
                          >
-                           Próxima
+                           Next
                          </button>)
                        : null}
                    </div>
