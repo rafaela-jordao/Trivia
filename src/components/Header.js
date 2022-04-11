@@ -28,7 +28,13 @@ class Header extends Component {
           id="imagem"
         />
         <p data-testid="header-player-name">{player}</p>
-        <p data-testid="header-score">{score}</p>
+        <p
+          className="score"
+          data-testid="header-score"
+        >
+          {score}
+
+        </p>
 
       </header>
     );

@@ -62,7 +62,7 @@ class Login extends React.Component {
     return (
       <div className="login">
         <form className="form-login">
-          <h1>Trivia Game</h1>
+          <h1 className="title">Trivia Game</h1>
           <label htmlFor="name">
             <input
               placeholder="Name"
