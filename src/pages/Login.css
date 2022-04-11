@@ -8,10 +8,11 @@
 
 
 .login {
+  background: url('https://gifmania.com.br/wp-content/uploads/2020/08/interrogacoes.gif') no-repeat;
+  background-size: 100%;
   align-items: center;
-  background-color: rgb(47, 90, 139);
+  /* background-color: rgb(47, 90, 139); */
 
-  /* background: url('https://gifmania.com.br/wp-content/uploads/2020/08/interrogacoes.gif') no-repeat center fixed; */
   display: flex;
   height: 100vh;
   justify-content: center;
