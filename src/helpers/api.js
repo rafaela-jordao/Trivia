@@ -15,7 +15,7 @@ export const getQuestions = async ({ token, category, difficulty, typeOfQuestion
   console.log(typeOfQuestion);
   let URL = 'https://opentdb.com/api.php?amount=5';
 
-  if (category) { URL += `&category=${category}`; }
+  if (category) URL += `&category=${category}`;
   if (difficulty) { URL += `&difficulty=${difficulty}`; }
   if (typeOfQuestion) { URL += `&type=${typeOfQuestion}`; }
 

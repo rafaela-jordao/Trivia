@@ -6,7 +6,7 @@ import './FeedBack.css';
 
 class Feedback extends React.Component {
   componentDidMount() {
-    this.SaveRecord();
+    this.saveRecord();
   }
 
     handleClickPlayAgain = () => {
@@ -19,10 +19,18 @@ class Feedback extends React.Component {
     history.push('/ranking');
   }
 
-  SaveRecord = () => {
-    const { correctAnswer, score } = this.props;
-    localStorage.setItem('correctAnswer', `${correctAnswer}`);
-    localStorage.setItem('score', `${score}`);
+  saveRecord = () => {
+    const { score, gravatarEmail, name } = this.props;
+    const gravatarURL = 'https://www.gravatar.com/avatar/';
+    const currentRecords = localStorage.getItem('ranking');
+    let recordArray = JSON.parse(currentRecords);
+    if (recordArray !== null) {
+      recordArray.push({ name, score, picture: gravatarURL + gravatarEmail });
+    } else {
+      recordArray = [{ name, score, picture: gravatarURL + gravatarEmail }];
+    }
+    const newRecord = JSON.stringify(recordArray);
+    localStorage.setItem('ranking', newRecord);
   };
 
   render() {
@@ -79,6 +87,8 @@ class Feedback extends React.Component {
 const mapStateToProps = (state) => ({
   correctAnswer: state.player.answer,
   score: state.player.score,
+  name: state.player.name,
+  gravatarEmail: state.player.gravatarEmail,
 });
 
 Feedback.propTypes = {
@@ -87,6 +97,8 @@ Feedback.propTypes = {
   }).isRequired,
   correctAnswer: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
